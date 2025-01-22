@@ -1,0 +1,331 @@
+# Site
+# repository: Git repository where your resume will be hosted, only required if you are hosting on GitHub (eg. sproogen/modern-resume-theme)
+# favicon: Directory of your favicon (eg. images/favicon.ico)(optional)
+
+# Content configuration version
+version: 2
+
+# Personal info
+name: Sanghun Cho
+title: AI Research Engineer
+# email: foobar@gmail.com
+# email_title: Email (Email title override)
+# phone: +82-10-0000-0000
+# phone_title: Phone (Phone title override)
+# website: Your website (eg. https://google.com)(optional)
+# website_title: Web (Website title override)
+
+# Dark Mode (true/false/never)
+darkmode: false
+
+# Social links
+# twitter_username: jekyllrb
+# github_username: shcho1118
+# stackoverflow_username: "00000001"
+# dribbble_username: jekyll
+# facebook_username: jekyll
+# flickr_username: jekyll
+# instagram_username: jekyll
+linkedin_username: sanghun-cho-04b02216b
+# xing_username: jekyll
+# pinterest_username: jekyll
+# youtube_username: jekyll
+orcid_username: 0009-0002-9511-5347
+# googlescholar_username: D847cGsAAAAJ
+
+# Additional icon links
+# additional_links:
+# - title: Link name
+#   icon: Font Awesome brand icon name (eg. fab fa-twitter) (https://fontawesome.com/icons?d=gallery&s=brands&m=free)
+#   url: Link url (eg. https://google.com)
+# - title: another link
+#   icon: font awesome brand icon name (eg. fab fa-twitter) (https://fontawesome.com/icons?d=gallery&s=brands&m=free)
+#   url: Link url (eg. https://google.com)
+
+# Google Analytics and Tag Manager
+# Using more than one of these may cause issues with reporting
+# gtm: "GTM-0000000"
+# gtag: "UA-00000000-0"
+# google_analytics: "UA-00000000-0"
+
+# About Section
+# about_title: About Me (Use this to override about section title)
+# about_profile_image: Directory of profile image (eg. images/profile.jpg)
+about_content: | # this will include new lines to allow paragraphs
+  I'm interested in all technologies that **make AI fast & realistic** (Distributed Training, GPU Kernel, Compiler, NPU, etc.). 
+  My role is **accelerating training and inference** to improve generative AI performance in a variety of fields. 
+  I've worked on **optimizing training costs** in T2I and Bio, 
+  and recently **made major contributions to popular acceleration frameworks (e.g. FlashAttention, Optimum Quanto)** by developing custom GPU kernels for LLM.
+  
+  **Keywords**:
+      Collective Communication, 
+      Computer Architecture, 
+      Parallel Computing,
+      CUDA,
+      PyTorch,
+      Triton 
+
+# Write an awesome description about yourself here, this supports markdown, so you can add [links](http://foobar.com) and highlight things <mark>like this</mark>.
+
+# You can even add paragraphs by using empty lines like this and add anything else [markdown](https://www.markdownguide.org/getting-started#what-is-markdown) supports such as
+#   - Lists
+#   - Tables
+#   - <a href="google.com">Links</a>
+#   - Images ![alt text](/images/landscape-trees.jpg "Trees")
+
+content:
+  - title: Projects
+    layout: list
+    content:
+      - layout: top
+        title: Fused Attention Z-loss <a name="attn_z_loss"></a>
+        caption: Oct 2024
+        quote: >
+          Kernel fusion for attention z-loss to improve model instability without hurting model quality
+        description: |
+          * Responsible for accelerating attention z-loss implementation used for stable training of LLMs (e.g. [PaLM](https://arxiv.org/abs/2204.02311), [ST-MoE](https://arxiv.org/abs/2202.08906))
+          * Achieved low latency & minimal memory usage even with long sequence lengths
+            * Leveraged fused attention backward op to optimize computation
+          * **7x-14x** speedup, **63x-2900x** memory savings
+          * Skills: Triton, PyTorch
+
+      - layout: top
+        title: Marlin w. Scaled Zero-point <a name="marlin_sz"></a>
+        caption: Jun 2024
+        link: github.com/shcho1118/marlin-scaled-zero-point
+        link_text: Github Repository
+        additional_links:
+          - title: Report
+            icon: fas fa-globe
+            url: docs.google.com/document/d/1SHh9A6VCWs0_bE4YkzZf8wTc1eFjzlnS4487R0TSLT4/edit?usp=sharing
+        quote: >
+          AWQ-compatible W4A16 GEMM implementation based on Marlin kernel for weight-only quantization
+        description: |
+          * Responsible for adding zero-point in [Marlin](https://www.arxiv.org/abs/2408.11743) kernel for [AWQ](https://arxiv.org/abs/2306.00978)
+            * Used scaled zero-point to remove redundant computation for dequantization
+          * Integrated new kernel in the quantization library (e.g. [huggingface/optimum-quanto](https://github.com/huggingface/optimum-quanto/releases/tag/v0.2.6))
+          * Speedup: **2.2x** (PyTorch native), **1.3x** ([AWQ kernel](https://github.com/mit-han-lab/llm-awq/tree/main/awq/kernels/csrc/quantization_new)) 
+          * Skills: CUDA, PyTorch
+
+      - layout: top
+        title: ALiBi FlashAttention <a name="alibi_fa"></a>
+        caption: Jan 2024
+        link: pli.princeton.edu/blog/2024/alibi-flashattention-speeding-alibi-3-5x-hardware-efficient-implementation
+        link_text: Princeton Language and Intelligence (PLI) Blog
+        additional_links:
+          - title: Github Pull Request
+            icon: fab fa-github
+            url: github.com/Dao-AILab/flash-attention/pull/540
+          - title: Kakao Brain Blog
+            icon: fas fa-globe
+            url: blog.kakaobrain.com/news/tech/1395
+        quote: >
+          Speeding up ALiBi by 3-5x with a hardware-efficient implementation
+        description: |
+          * Responsible for implementing [ALiBi](https://arxiv.org/abs/2108.12409) inside FlashAttention-2 w. hardware-efficient manner
+          * Dramatically reduced # memory accesses required to apply ALiBi compared to before, making **3-5x faster**
+          * Skills: CUDA (especially CUTLASS), PyTorch
+      
+      - layout: top
+        title: Solvent <a name="solvent"></a>
+        caption: Jul 2023
+        link: github.com/kakaobrain/solvent
+        link_text: Github Repository
+        # additional_links:
+        #   - title: Publication
+        #     icon: fas fa-globe
+        #     url: arxiv.org/abs/2307.04603
+        quote: >
+          A Framework for Protein Folding
+        description: |
+          * Responsible for optimizing AI training (especially developing & applying custom kernels)
+          * xFormers memory-efficient attention w. bias-related optimizations via CUDA profiling
+            * Multiple attention biases were previously memory discontinuous due to permutation and had different shapes, causing broadcast on reduction
+            * Through CUDA profiling, discovered unnecessary memory rearrangements
+            * Reordered memory rearrangements and reduction operations, **saving 256x memory accesses**
+          * Operation fusion w. Triton
+            * LayerNorm with chunking to take advantage of shapes that work more efficiently
+            * Linear + Activation (e.g. Sigmoid)
+            * Improved computation speed by **reducing memory accesses** through kernel fusion
+          * **Improved 30% training speed & memory footprint**
+          * Skills: CUDA, Triton, PyTorch
+
+      - layout: top
+        title: minDALL-E on Conceptual Captions <a name="mindalle"></a>
+        caption: Dec 2021
+        link: github.com/kakaobrain/mindall-e
+        link_text: Github Repository
+        quote: >
+          1.3B Text-to-image Generation Model Trained on 14 Million Image-text Pairs for Non-commercial Purposes
+        description: |
+          * Responsible for optimizing AI training (computation, communication, etc.)
+          * Computation optimization (especially for attention) via CUDA profiling
+          * Communication optimization (especially for distributed training) w. ZeRO-3 (or FSDP) + PowerSGD
+            * Reproduced distributed training technique mentioned in [DALL-E](https://arxiv.org/abs/2102.12092)
+            * **Reduced memory footprint** for training with FSDP & **solved inter-node network bandwidth bottleneck** by introducing PowerSGD
+            * **Presentation**: [코끼리를 GPU에 넣는 법 (Elephant in GPU)](https://speakerdeck.com/kakao/koggirireul-gpue-neohneun-beob), 
+                            if(kakao)2022, 
+                            Dec 9, 2022
+          * Skills: Collective Communication, CUDA, PyTorch
+
+  - title: Experience
+    layout: list
+    content:
+      - layout: top
+        title: Kakao Brain (for now, Kakao)
+        sub_title: AI Research Engineer
+        caption: Aug 2021 - Present
+        link: www.kakaocorp.com
+        quote: >
+          Large-Scale Generative AI Company
+        description: |
+          * AI Training Performance Optimization
+            * Responsible for optimizing the performance of AI training in various fields (e.g. T2I, Bio, LLM, etc.)
+            * Improved speed and memory footprint in distributed training by profiling workload to resolve computational bottlenecks & tuning collective communication essential to training.
+          * GPU Kernel Development
+            * Responsible for developing CUDA & Triton kernels to efficiently use GPUs
+            * Improved speed and memory footprint through operation fusion & further optimized attention operations to maximize computational efficiency
+
+
+  - title: Education
+    layout: list
+    content:
+      - layout: top
+        title: Korea Advanced Institute of Science and Technology (KAIST)
+        sub_title: Master of Science, School of Electrical Engineering
+        caption: 2019 - 2021
+        quote: >
+          Graduate Research Assistant in Computer System and Network Lab (CSNL)
+        description: |
+          * Optimized main bottlenecks of distributed deep learning training system (e.g. collective communication)
+          * Profiled various workloads running on multi-GPU system (e.g. CUDA Unified Memory)
+          * GPA: 3.42/4.3
+          * Thesis: Communication Optimization for Deep Learning in Distributed Processing Environments
+
+      - layout: top
+        title: Sungkyunkwan University (SKKU)
+        sub_title: Bachelor of Science, Department of Computer Science
+        caption: 2013 - 2019
+        quote: >
+          Undergraduate Research Assistant in Advanced Research on Compilers and Systems (ARCS)
+        description: |
+          * Optimized CPU-GPU communication
+          * Studied GPGPU platform (e.g. CUDA)
+          * GPA: 4.15/4.5
+          * Thesis: Multithreaded Double Queuing for GPGPU
+
+  # - title: Skills
+  #   layout: text
+  #   content: |
+  #     **Keywords**:
+  #     CUDA, 
+  #     CUPTI, 
+  #     Collective Communication, 
+  #     Computer Architecture, 
+  #     NCCL, 
+  #     OpenAI Triton, 
+  #     Parallel Computing, 
+  #     PyTorch, 
+  #     cuDNN,
+  
+  - title: Publications
+    layout: text
+    content: |
+      [Logical/Physical Topology-Aware Collective Communication in Deep Learning Training](https://doi.org/10.1109/HPCA56546.2023.10071117), 
+      Sanghun Cho, Hyojun Son, John Kim, 
+      IEEE Symposium on High-Performance Computer Architecture (HPCA), 
+      Mar 24, 2023
+
+      [Bandwidth Bottleneck in Network-on-Chip for High-Throughput Processors](https://doi.org/10.1145/3410463.3414673), 
+      Jiho Kim, Sanghun Cho, Minsoo Rhu, Ali Bakhoda, Tor M. Aamodt, John Kim, 
+      ACM International Conference on Parallel Architectures and Compilation Techniques (PACT), 
+      Oct 5, 2020
+
+      [Multithreaded Double Queuing for Balanced CPU-GPU Memory Copying](https://doi.org/10.1145/3297280.3297426), 
+      Sanghun Cho, Jaewan Hong, Jungsik Choi, Hwansoo Han, 
+      ACM/SIGAPP Symposium on Applied Computing (SAC), 
+      Apr 11, 2019
+
+      [Automatic Memory Pinning Management for Fast Data Transfer on GPU Computing](https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE07613995), 
+      Jaewan Hong, Sanghun Cho, Hwansoo Han, 
+      Korea Software Conference (KSC), 
+      Dec 1, 2018
+      
+  # - title: Projects # Title for the section
+  #   layout: list # Type of content section (list/text)
+  #   content:
+  #     - layout: left
+  #       border: weak  # Value of `weak` will display a weak border below this item. # Any 
+  #                     # other value (or no value) means no border will be displayed
+  #       title: Project name
+  #       link: Link to project (eg. sproogen.github.io/modern-resume-theme)(optional)
+  #       link_text: Link Text
+  #       additional_links:
+  #         - title:  Github page for project (eg. sproogen/modern-resume-theme)
+  #           icon: fab fa-github
+  #           url: Link to project (eg. sproogen.github.io/modern-resume-theme)(optional)
+  #         - title:  Github page for project (eg. sproogen/modern-resume-theme)
+  #           icon: fab fa-github
+  #           url: Link to project (eg. sproogen.github.io/modern-resume-theme)(optional)
+  #       quote: >
+  #         Short overview of the project (optional)
+  #       description: | # this will include new lines to allow paragraphs
+  #         Description about the work on/with the project
+  # - title: Experience
+  #   layout: list
+  #   content:
+  #     - layout: right
+  #       title: Company name
+  #       sub_title: Job title
+  #       caption: Date Range (eg. November 2016 - present)
+  #       link: Link to company (optional)
+  #       quote: >
+  #         Short description of the company (optional)
+  #       description: | # this will include new lines to allow paragraphs
+  #         Description of role
+  # - title: Education
+  #   layout: list
+  #   content:
+  #     - layout: top-right
+  #       title: Institution name
+  #       sub_title: Qualifications (eg. BA Performing Arts)
+  #       caption: Date Range (eg. 2016 - 2019)
+  #       quote: >
+  #         Short institution or course description (optional)
+  #       description: | # this will include new lines to allow paragraphs
+  #         Description of qualification
+  # - title: A Little More About Me
+  #   layout: text
+  #   content: | # this will include new lines to allow paragraphs
+  #     This is where you can write a little more about yourself. You could title this section **Interests** and include some of your other interests.
+
+  #     Or you could title it **Skills** and write a bit more about things that make you more desirable, like *leadership* or *teamwork*
+
+# Footer
+footer_show_references: true
+# references_title: References on request (Override references text)
+
+# Build settings
+# theme: modern-resume-theme (Use this is you are hosting your resume yourself)
+# remote_theme: sproogen/modern-resume-theme (Use this if you are hosting your resume on GitHub)
+remote_theme: sproogen/modern-resume-theme
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+plugins:
+ - jekyll-seo-tag
+
+exclude : [
+  "Gemfile",
+  "Gemfile.lock",
+  "node_modules",
+  "vendor/bundle/",
+  "vendor/cache/",
+  "vendor/gems/",
+  "vendor/ruby/",
+  "lib/",
+  "scripts/",
+  "docker-compose.yml",
+  ]
