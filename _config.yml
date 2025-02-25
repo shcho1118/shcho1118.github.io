@@ -78,15 +78,27 @@ content:
     layout: list
     content:
       - layout: top
+        title: vLLM INT4 KV Cache Attention Backend <a name="int4_kv_cache"></a>
+        caption: Feb 2025
+        quote: >
+          INT4 KV cache quantization for long context length LLM inference with minimal memory usage
+        description: |
+          * Responsible for adding INT4 KV cache attention backend inside [vLLM](https://github.com/vllm-project/vllm) to save memory usage for long context LLM inference
+          * Developed triton attention kernel for prefix KV caching (also used in chunked prefill)
+            * Used inline assembly for fast INT4 -> FP16 (or BF16) dequantization
+          * **1.10x-1.63x** speedup, **3.87x** memory saving (vs. xFormers backend)
+          * Skills: Triton, CUDA (especially PTX Assembly), PyTorch
+
+      - layout: top
         title: Fused Attention Z-loss <a name="attn_z_loss"></a>
         caption: Oct 2024
         quote: >
           Kernel fusion for attention z-loss to improve model instability without hurting model quality
         description: |
-          * Responsible for accelerating attention z-loss implementation used for stable training of LLMs (e.g. [PaLM](https://arxiv.org/abs/2204.02311), [ST-MoE](https://arxiv.org/abs/2202.08906))
-          * Achieved low latency & minimal memory usage even with long sequence lengths
+          * Responsible for accelerating attention z-loss implementation used for stable training of LLM (e.g. [PaLM](https://arxiv.org/abs/2204.02311), [ST-MoE](https://arxiv.org/abs/2202.08906))
+          * Achieved low latency & minimal memory usage even with long sequence length
             * Leveraged fused attention backward op to optimize computation
-          * **7x-14x** speedup, **63x-2900x** memory savings
+          * **7x-14x** speedup, **63x-2900x** memory saving
           * Skills: Triton, PyTorch
 
       - layout: top
@@ -104,7 +116,7 @@ content:
           * Responsible for adding zero-point in [Marlin](https://www.arxiv.org/abs/2408.11743) kernel for [AWQ](https://arxiv.org/abs/2306.00978)
             * Used scaled zero-point to remove redundant computation for dequantization
           * Integrated new kernel in the quantization library (e.g. [huggingface/optimum-quanto](https://github.com/huggingface/optimum-quanto/releases/tag/v0.2.6))
-          * Speedup: **2.2x** (PyTorch native), **1.3x** ([AWQ kernel](https://github.com/mit-han-lab/llm-awq/tree/main/awq/kernels/csrc/quantization_new)) 
+          * Speedup: **2.2x** (vs. PyTorch native), **1.3x** (vs. [AWQ kernel](https://github.com/mit-han-lab/llm-awq/tree/main/awq/kernels/csrc/quantization_new)) 
           * Skills: CUDA, PyTorch
 
       - layout: top
