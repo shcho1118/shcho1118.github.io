@@ -57,12 +57,10 @@ about_content: | # this will include new lines to allow paragraphs
   I've worked on **optimizing training costs** in T2I and Bio, 
   and recently **made major contributions to popular acceleration frameworks (e.g. FlashAttention, Optimum Quanto)** by developing custom GPU kernels for LLM.
   
-  **Keywords**:
+  **Skills**:
       Collective Communication, 
       Computer Architecture, 
       CUDA,
-      Training Acceleration,
-      Inference Acceleration,
       Parallel Computing,
       PyTorch,
       Triton
