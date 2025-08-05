@@ -89,7 +89,7 @@ content:
             * Responsible for adding MLA BWD support to FlashAttention-3 [(Pull Request)](https://github.com/Dao-AILab/flash-attention/pull/1604)
             * **1.1x-1.2x** speedup (vs. FA3 + explicit padding & unpadding)
           * Custom Non-GEMM Kernels for DeepGEMM FP8 Grouped GEMM
-            * Responsible for implementing custom non-GEMM kernels (activation & weight grouped quantization, permutation + alignment fusion, etc.) to use DeepGEMM FP8 Grouped GEMM in training
+            * Responsible for implementing custom non-GEMM kernels (activation & weight grouped quantization, permutation + alignment fusion, etc.) for training
             * Grouped Quantization
               * Made each group's activation & weight quantization work at once (rowwise & columnwise)
               * **1.7x-36x** speedup (vs. [TransformerEngine](https://github.com/NVIDIA/TransformerEngine/blob/06947e87b5511f8ad69ccd00286de9227f0fad24/transformer_engine/pytorch/csrc/extensions/cast.cpp#L87))
