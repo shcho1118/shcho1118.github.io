@@ -60,10 +60,12 @@ about_content: | # this will include new lines to allow paragraphs
   **Keywords**:
       Collective Communication, 
       Computer Architecture, 
-      Parallel Computing,
       CUDA,
+      Training Acceleration,
+      Inference Acceleration,
+      Parallel Computing,
       PyTorch,
-      Triton 
+      Triton
 
 # Write an awesome description about yourself here, this supports markdown, so you can add [links](http://foobar.com) and highlight things <mark>like this</mark>.
 
@@ -78,6 +80,26 @@ content:
     layout: list
     content:
       - layout: top
+        title: Sequence Packing for Distributed Training in Megatron-LM <a name="seq_packing"></a>
+        caption: Apr 2025
+        quote: >
+          Properly (and efficiently) implemented sequence packing for distributed training (e.g. CP, DP) in Megatron-LM
+        description: |
+          * Sequence packing + Context Parallelism (CP)
+            * Responsible for implementing sequence packing for CP in Megatron-LM
+            * Needed to properly slice input sequence into chunks for [Striped Attention](https://arxiv.org/abs/2311.09431)
+              * Striped Attention handles computation imbalance caused by causal attention
+              * TransformerEngine's fused attention layer uses Striped Attention
+            * Fixed RoPE issue in sequence packing + context parallelism
+              * Previous Megatron-LM didn't use TransformerEngine's RoPE kernel that handles sequence packing + CP
+          * Sequence packing + Data Parallelism (DP)
+            * Responsible for implementing [minibatch reordering](https://arxiv.org/abs/2410.02660) to mitigate computation imbalance
+              * Sequence packing + DP causes computation imbalance since sum of squared sequence lengths is different for each DP rank
+            * Built custom data sampler sorting global batch & distributing it to each DP rank
+            * **1.06x-1.10x** speedup when using long sequence length
+          * Keywords: PyTorch, Training Acceleration
+
+      - layout: top
         title: vLLM INT4 KV Cache Attention Backend <a name="int4_kv_cache"></a>
         caption: Feb 2025
         quote: >
@@ -87,7 +109,7 @@ content:
           * Developed triton attention kernel for prefix KV caching (also used in chunked prefill)
             * Used inline assembly for fast INT4 -> FP16 (or BF16) dequantization
           * **1.10x-1.63x** speedup, **3.87x** memory saving (vs. xFormers backend)
-          * Skills: Triton, CUDA (especially PTX Assembly), PyTorch
+          * Keywords: CUDA (especially PTX Assembly), Inference Acceleration, PyTorch, Triton
 
       - layout: top
         title: Fused Attention Z-loss <a name="attn_z_loss"></a>
@@ -99,7 +121,7 @@ content:
           * Achieved low latency & minimal memory usage even with long sequence length
             * Leveraged fused attention backward op to optimize computation
           * **7x-14x** speedup, **63x-2900x** memory saving
-          * Skills: Triton, PyTorch
+          * Keywords: PyTorch, Training Acceleration, Triton
 
       - layout: top
         title: Marlin w. Scaled Zero-point <a name="marlin_sz"></a>
@@ -117,7 +139,7 @@ content:
             * Used scaled zero-point to remove redundant computation for dequantization
           * Integrated new kernel in the quantization library (e.g. [huggingface/optimum-quanto](https://github.com/huggingface/optimum-quanto/releases/tag/v0.2.6))
           * Speedup: **2.2x** (vs. PyTorch native), **1.3x** (vs. [AWQ kernel](https://github.com/mit-han-lab/llm-awq/tree/main/awq/kernels/csrc/quantization_new)) 
-          * Skills: CUDA, PyTorch
+          * Keywords: CUDA, Inference Acceleration, PyTorch
 
       - layout: top
         title: ALiBi FlashAttention <a name="alibi_fa"></a>
@@ -136,7 +158,7 @@ content:
         description: |
           * Responsible for implementing [ALiBi](https://arxiv.org/abs/2108.12409) inside FlashAttention-2 w. hardware-efficient manner
           * Dramatically reduced # memory accesses required to apply ALiBi compared to before, making **3-5x faster**
-          * Skills: CUDA (especially CUTLASS), PyTorch
+          * Keywords: CUDA (especially CUTLASS), PyTorch, Training Acceleration
       
       - layout: top
         title: Solvent <a name="solvent"></a>
@@ -160,7 +182,7 @@ content:
             * Linear + Activation (e.g. Sigmoid)
             * Improved computation speed by **reducing memory accesses** through kernel fusion
           * **Improved 30% training speed & memory footprint**
-          * Skills: CUDA, Triton, PyTorch
+          * Keywords: CUDA, PyTorch, Training Acceleration, Triton
 
       - layout: top
         title: minDALL-E on Conceptual Captions <a name="mindalle"></a>
@@ -178,7 +200,7 @@ content:
             * **Presentation**: [코끼리를 GPU에 넣는 법 (Elephant in GPU)](https://speakerdeck.com/kakao/koggirireul-gpue-neohneun-beob), 
                             if(kakao)2022, 
                             Dec 9, 2022
-          * Skills: Collective Communication, CUDA, PyTorch
+          * Keywords: Collective Communication, CUDA, PyTorch, Training Acceleration
 
   - title: Experience
     layout: list
