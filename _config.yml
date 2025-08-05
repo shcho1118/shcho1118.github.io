@@ -80,6 +80,25 @@ content:
     layout: list
     content:
       - layout: top
+        title: DeepSeek Architecture Training Optimization <a name="deepseek_arch_opt"></a>
+        caption: Present
+        quote: >
+          Latency & Memory Optimization for DeepSeek Architecture Training
+        description: |
+          * Multi-head Latent Attention (MLA) BWD Kernel
+            * Responsible for adding MLA BWD support to FlashAttention-3 [(Pull Request)](https://github.com/Dao-AILab/flash-attention/pull/1604)
+            * **1.1x-1.2x** speedup (vs. FA3 + explicit padding & unpadding)
+          * Custom Non-GEMM Kernels for DeepGEMM FP8 Grouped GEMM
+            * Responsible for implementing custom non-GEMM kernels (activation & weight grouped quantization, permutation + alignment fusion, etc.) to use DeepGEMM FP8 Grouped GEMM in training
+            * Grouped Quantization
+              * Made each group's activation & weight quantization work at once (rowwise & columnwise)
+              * **1.7x-36x** speedup (vs. [TransformerEngine](https://github.com/NVIDIA/TransformerEngine/blob/06947e87b5511f8ad69ccd00286de9227f0fad24/transformer_engine/pytorch/csrc/extensions/cast.cpp#L87))
+            * Permutation + Alignment Fusion
+              * DeepGEMM FP8 Grouped GEMM needs to 128-align each group's activation
+              * **3x** speedup (vs. TransformerEngine [permutation](https://github.com/NVIDIA/TransformerEngine/blob/06947e87b5511f8ad69ccd00286de9227f0fad24/transformer_engine/common/permutation/permutation.cu) + [alignment](https://github.com/NVIDIA/TransformerEngine/blob/06947e87b5511f8ad69ccd00286de9227f0fad24/transformer_engine/pytorch/csrc/extensions/padding.cpp))
+          * Keywords: CUDA, PyTorch, Training Acceleration
+
+      - layout: top
         title: Sequence Packing for Distributed Training in Megatron-LM <a name="seq_packing"></a>
         caption: Apr 2025
         quote: >
@@ -247,20 +266,6 @@ content:
           * Studied GPGPU platform (e.g. CUDA)
           * GPA: 4.15/4.5
           * Thesis: Multithreaded Double Queuing for GPGPU
-
-  # - title: Skills
-  #   layout: text
-  #   content: |
-  #     **Keywords**:
-  #     CUDA, 
-  #     CUPTI, 
-  #     Collective Communication, 
-  #     Computer Architecture, 
-  #     NCCL, 
-  #     OpenAI Triton, 
-  #     Parallel Computing, 
-  #     PyTorch, 
-  #     cuDNN,
   
   - title: Publications
     layout: text
