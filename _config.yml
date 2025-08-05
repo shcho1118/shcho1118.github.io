@@ -115,7 +115,7 @@ content:
             * Responsible for implementing [minibatch reordering](https://arxiv.org/abs/2410.02660) to mitigate computation imbalance
               * Sequence packing + DP causes computation imbalance since sum of squared sequence lengths is different for each DP rank
             * Built custom data sampler sorting global batch & distributing it to each DP rank
-            * **1.06x-1.10x** speedup when using long sequence length
+            * **1.06x-1.1x** speedup when using long sequence length
           * Keywords: PyTorch, Training Acceleration
 
       - layout: top
@@ -127,7 +127,7 @@ content:
           * Responsible for adding INT4 KV cache attention backend inside [vLLM](https://github.com/vllm-project/vllm) to save memory usage for long context LLM inference
           * Developed triton attention kernel for prefix KV caching (also used in chunked prefill)
             * Used inline assembly for fast INT4 -> FP16 (or BF16) dequantization
-          * **1.10x-1.63x** speedup, **3.87x** memory saving (vs. xFormers backend)
+          * **1.1x-1.63x** speedup, **3.87x** memory saving (vs. xFormers backend)
           * Keywords: CUDA (especially PTX Assembly), Inference Acceleration, PyTorch, Triton
 
       - layout: top
