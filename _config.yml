@@ -105,7 +105,7 @@ content:
           Properly (and efficiently) implemented sequence packing for distributed training (e.g. CP, DP) in Megatron-LM
         description: |
           * Sequence packing + Context Parallelism (CP)
-            * Responsible for implementing sequence packing for CP in Megatron-LM
+            * Responsible for implementing sequence packing for CP
             * Needed to properly slice input sequence into chunks for [Striped Attention](https://arxiv.org/abs/2311.09431)
               * Striped Attention handles computation imbalance caused by causal attention
               * TransformerEngine's fused attention layer uses Striped Attention
